@@ -1,0 +1,19 @@
+.List {
+  padding: 0px 0px 0px 10px;
+  margin: 0;
+}
+
+.Item {
+  display: flex;
+  align-items: center;
+}
+.Text {
+  width: 200px;
+  font-weight: 500;
+  margin: 0px 20px 10px 0px;
+}
+
+button {
+  width: 100px;
+  height: 25px;
+}
