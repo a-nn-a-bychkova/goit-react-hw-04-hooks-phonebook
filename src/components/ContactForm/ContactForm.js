@@ -1,61 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import PropTypes from 'prop-types';
 import s from '../styles/Input.module.css';
 
-class ContactForm extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
+function ContactForm(props) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  state = {
-    name: '',
-    number: '',
-  };
-
-  handleChange = e => {
+  const handleChange = e => {
     const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
+    console.log(name, value);
+    if (e.currentTarget.name === 'name') {
+      setName(e.currentTarget.value);
+    } else if (e.currentTarget.name === 'number') {
+      setNumber(e.currentTarget.value);
+    }
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.reset();
+    props.onSubmit(name, number);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: '', number: '' });
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
-
-  render() {
-    const { name, number } = this.state;
-    return (
-      <form onSubmit={this.handleSubmit} className={s.Form}>
-        <label className={s.Label}>
-          Name
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-            className={s.Input}
-          />
-        </label>
-        <label className={s.Label}>
-          Number
-          <input
-            type="text"
-            name="number"
-            value={number}
-            onChange={this.handleChange}
-            className={s.Input}
-          />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={handleSubmit} className={s.Form}>
+      <label className={s.Label}>
+        Name
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          className={s.Input}
+        />
+      </label>
+      <label className={s.Label}>
+        Number
+        <input
+          type="text"
+          name="number"
+          value={number}
+          onChange={handleChange}
+          className={s.Input}
+        />
+      </label>
+      <button type="submit">Add contact</button>
+    </form>
+  );
 }
 
 export default ContactForm;
